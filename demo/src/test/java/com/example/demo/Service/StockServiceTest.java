@@ -37,6 +37,29 @@ class StockServiceTest {
     void multiple() throws IOException, InterruptedException
     {
         final List<StockWrapper> stocks = stockService.findStocks(Arrays.asList("GOOG", "AMZN"));
+        findPrices(stocks);
+        // call thread sleep 16 sec so we can see some change because we set shouldRefresh method to refresh every 15 secs
+        Thread.sleep(16000);
 
+        final StockWrapper aa = stockService.findStock("TSLA");
+        stocks.add(aa);
+
+        System.out.println(stocks);
+
+        findPrices(stocks);
+    }
+
+    private void findPrices(List<StockWrapper> stocks)
+    {
+        stocks.forEach(stock -> {
+            try
+            {
+                System.out.println(stockService.findPrice(stock));
+            }
+            catch (IOException e)
+            {
+                System.out.println("Error happens in findPrices(stocks)");
+            }
+        });
     }
 }

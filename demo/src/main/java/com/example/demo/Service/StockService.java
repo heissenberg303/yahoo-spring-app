@@ -36,7 +36,7 @@ public class StockService
 
     }
 
-    public BigDecimal findPrice(final StockWrapper stock) throws IOException
+    public BigDecimal findPrice(final StockWrapper stock) throws IOException, NullPointerException
     {
 //        return stock.getStock().getQuote(true).getPrice();
         return stock.getStock().getQuote(refreshService.shouldRefresh(stock)).getPrice();
